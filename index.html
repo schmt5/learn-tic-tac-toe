@@ -100,22 +100,65 @@
                 }
             }
 
-            // ===== Hauptteil: Funktionen zusammensetzen =====
-            // Jede Funktion macht genau eine Sache. Hier kombinieren wir sie:
-            let feld = erstelleFeld(); // Schritt 1: Daten erzeugen
-            zeigeFeld(feld); // Schritt 2: Daten anzeigen
+            // Schritt 6: prüfen, ob ein Feld noch frei ist
+            // Frei bedeutet: dort steht ein Leerzeichen, noch kein "X" oder "O".
+            function istFrei(feld, index) {
+                return feld[index] === " ";
+            }
 
-            // Schritt 5: Spieler wechseln
-            // Wir merken uns in einer Variablen, wer gerade dran ist.
-            let spieler = "X";
-            console.log("Aktueller Spieler:", spieler); // X
-            spieler = wechsleSpieler(spieler); // jetzt ist O dran
-            console.log("Nach dem Wechsel:", spieler); // O
-            spieler = wechsleSpieler(spieler); // und wieder X
-            console.log("Nach noch einem Wechsel:", spieler); // X
+            // Schritt 7: prüfen, ob das Feld voll ist
+            // includes(" ") ist true, solange noch ein Leerzeichen übrig ist.
+            // Mit ! drehen wir das um: voll = KEIN Leerzeichen mehr übrig.
+            function istVoll(feld) {
+                return !feld.includes(" ");
+            }
 
-            // Ausblick: Als Nächstes fügen wir die Eingabe (prompt) und eine
-            // Schleife hinzu, damit zwei Menschen abwechselnd spielen können.
+            // Schritt 8: einen gültigen Zug vom Spieler holen
+            // prompt() fragt den Menschen nach einer Zahl. Wir fragen so lange
+            // nach, bis die Eingabe gültig (1-9) und das Feld noch frei ist.
+            function holeZug(feld, spieler) {
+                while (true) {
+                    let eingabe = prompt(
+                        "Spieler " + spieler + ", waehle ein Feld (1-9):",
+                    );
+                    let index = Number(eingabe) - 1; // Mensch zählt 1-9, Array 0-8
+                    if (index >= 0 && index <= 8 && istFrei(feld, index)) {
+                        return index;
+                    }
+                    console.log("Ungueltiger Zug, versuche es nochmal.");
+                }
+            }
+
+            // Schritt 9: alle Bausteine zu einem echten Spiel zusammensetzen
+            // Hier sieht man, wofür wir die kleinen Funktionen gebaut haben.
+            function spiele() {
+                let feld = erstelleFeld(); // Schritt 1: leeres Feld
+                let spieler = "X"; // X fängt an
+                zeigeFeld(feld); // Schritt 2: Startfeld zeigen
+
+                // Die Schleife läuft, bis jemand gewinnt oder das Feld voll ist.
+                while (true) {
+                    let index = holeZug(feld, spieler); // Schritt 8: Eingabe holen
+                    setzeStein(feld, index, spieler); // Schritt 3: Stein setzen
+                    zeigeFeld(feld); // Schritt 2: neues Feld zeigen
+
+                    if (hatGewonnen(feld, spieler)) {
+                        // Schritt 4
+                        console.log("Spieler " + spieler + " gewinnt!");
+                        break; // Schleife verlassen -> Spiel zu Ende
+                    }
+                    if (istVoll(feld)) {
+                        // Schritt 7
+                        console.log("Unentschieden!");
+                        break;
+                    }
+                    spieler = wechsleSpieler(spieler); // Schritt 5: anderer ist dran
+                }
+            }
+
+            // ===== Hauptteil: das Spiel starten =====
+            // Ein einziger Aufruf – die ganze Logik steckt in den Funktionen.
+            spiele();
         </script>
     </body>
 </html>
