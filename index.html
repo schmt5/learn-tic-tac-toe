@@ -57,18 +57,58 @@
                 feld[index] = spieler;
             }
 
+            // Schritt 4: Daten prüfen
+            // Diese Funktion prüft, ob ein Spieler ("X" oder "O") gewonnen hat.
+            // Es gibt 8 Möglichkeiten zu gewinnen: 3 Reihen, 3 Spalten, 2 Diagonalen.
+            // Jede Linie ist eine Liste von drei Positionen (0-8).
+            function hatGewonnen(feld, spieler) {
+                let linien = [
+                    [0, 1, 2], // obere Reihe
+                    [3, 4, 5], // mittlere Reihe
+                    [6, 7, 8], // untere Reihe
+                    [0, 3, 6], // linke Spalte
+                    [1, 4, 7], // mittlere Spalte
+                    [2, 5, 8], // rechte Spalte
+                    [0, 4, 8], // Diagonale \
+                    [2, 4, 6], // Diagonale /
+                ];
+
+                // Wir schauen jede Linie an. Gehören alle drei Felder dem Spieler,
+                // dann hat er gewonnen -> true zurückgeben.
+                for (let linie of linien) {
+                    if (
+                        feld[linie[0]] === spieler &&
+                        feld[linie[1]] === spieler &&
+                        feld[linie[2]] === spieler
+                    ) {
+                        return true;
+                    }
+                }
+
+                // Keine Linie passt -> der Spieler hat (noch) nicht gewonnen.
+                return false;
+            }
+
             // ===== Hauptteil: Funktionen zusammensetzen =====
             // Jede Funktion macht genau eine Sache. Hier kombinieren wir sie:
             let feld = erstelleFeld(); // Schritt 1: Daten erzeugen
             zeigeFeld(feld); // Schritt 2: Daten anzeigen
 
             setzeStein(feld, 0, "X"); // Schritt 3: X oben links setzen
-            zeigeFeld(feld); // Feld erneut anzeigen – jetzt mit den Steinen
+            setzeStein(feld, 1, "X");
             setzeStein(feld, 4, "O"); // Schritt 3: O in die Mitte setzen
             zeigeFeld(feld); // Feld erneut anzeigen – jetzt mit den Steinen
 
-            // Ausblick: In den nächsten Schritten kommen weitere Funktionen dazu,
-            // z. B. den Spieler wechseln und prüfen, wer gewinnt.
+            // Schritt 4: prüfen, ob X gewonnen hat
+            console.log("Hat X gewonnen?", hatGewonnen(feld, "X")); // false
+
+            // X füllt die obere Reihe (0, 1, 2) komplett.
+            setzeStein(feld, 2, "X");
+            zeigeFeld(feld);
+            console.log("Hat X gewonnen?", hatGewonnen(feld, "X")); // true
+
+            // Ausblick: Als Nächstes fügen wir die Eingabe (prompt) und eine
+            // Schleife hinzu, damit zwei Menschen abwechselnd spielen können.
         </script>
     </body>
 </html>
