@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tic Tac Toe</title>
+    </head>
+    <body>
+        <p>Öffne die Konsole (F12), um die Ausgabe zu sehen.</p>
+        <script>
+            // ===== Grundidee: Eine Funktion = eine Aufgabe =====
+            // Wir bauen das Spiel Schritt für Schritt auf.
+            // Heute lernen wir die ersten zwei Bausteine.
+
+            // Schritt 1: Daten erzeugen
+            // Diese Funktion erstellt ein leeres Spielfeld: 9 leere Felder.
+            // Sie macht NICHTS anderes – sie gibt die Daten mit "return" zurück.
+            function erstelleFeld() {
+                return [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+            }
+
+            // Schritt 2: Daten anzeigen
+            // Diese Funktion zeigt ein Spielfeld in der Konsole an.
+            // Auch sie hat nur eine Aufgabe: anzeigen (sie verändert nichts).
+            function zeigeFeld(feld) {
+                // \n bedeutet "neue Zeile". So wird alles EIN String und Chrome
+                // baut keine Lücken zwischen mehreren console.log-Aufrufen ein.
+                console.log(
+                    " " +
+                        feld[0] +
+                        " | " +
+                        feld[1] +
+                        " | " +
+                        feld[2] +
+                        "\n" +
+                        "---+---+---\n" +
+                        " " +
+                        feld[3] +
+                        " | " +
+                        feld[4] +
+                        " | " +
+                        feld[5] +
+                        "\n" +
+                        "---+---+---\n" +
+                        " " +
+                        feld[6] +
+                        " | " +
+                        feld[7] +
+                        " | " +
+                        feld[8],
+                );
+            }
+
+            // ===== Hauptteil: Funktionen zusammensetzen =====
+            // Jede Funktion macht genau eine Sache. Hier kombinieren wir sie:
+            let feld = erstelleFeld(); // Schritt 1: Daten erzeugen
+            zeigeFeld(feld); // Schritt 2: Daten anzeigen
+
+            // Ausblick: In den nächsten Schritten kommen weitere Funktionen dazu,
+            // z. B. einen Stein setzen, den Spieler wechseln und prüfen, wer gewinnt.
+        </script>
+    </body>
+</html>
