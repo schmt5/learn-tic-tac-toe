@@ -89,23 +89,30 @@
                 return false;
             }
 
+            // Schritt 5: zwischen den Spielern wechseln
+            // Ist gerade "X" dran, gibt die Funktion "O" zurück – und umgekehrt.
+            // So müssen wir uns im Hauptteil nicht selbst merken, wer dran ist.
+            function wechsleSpieler(spieler) {
+                if (spieler === "X") {
+                    return "O";
+                } else {
+                    return "X";
+                }
+            }
+
             // ===== Hauptteil: Funktionen zusammensetzen =====
             // Jede Funktion macht genau eine Sache. Hier kombinieren wir sie:
             let feld = erstelleFeld(); // Schritt 1: Daten erzeugen
             zeigeFeld(feld); // Schritt 2: Daten anzeigen
 
-            setzeStein(feld, 0, "X"); // Schritt 3: X oben links setzen
-            setzeStein(feld, 1, "X");
-            setzeStein(feld, 4, "O"); // Schritt 3: O in die Mitte setzen
-            zeigeFeld(feld); // Feld erneut anzeigen – jetzt mit den Steinen
-
-            // Schritt 4: prüfen, ob X gewonnen hat
-            console.log("Hat X gewonnen?", hatGewonnen(feld, "X")); // false
-
-            // X füllt die obere Reihe (0, 1, 2) komplett.
-            setzeStein(feld, 2, "X");
-            zeigeFeld(feld);
-            console.log("Hat X gewonnen?", hatGewonnen(feld, "X")); // true
+            // Schritt 5: Spieler wechseln
+            // Wir merken uns in einer Variablen, wer gerade dran ist.
+            let spieler = "X";
+            console.log("Aktueller Spieler:", spieler); // X
+            spieler = wechsleSpieler(spieler); // jetzt ist O dran
+            console.log("Nach dem Wechsel:", spieler); // O
+            spieler = wechsleSpieler(spieler); // und wieder X
+            console.log("Nach noch einem Wechsel:", spieler); // X
 
             // Ausblick: Als Nächstes fügen wir die Eingabe (prompt) und eine
             // Schleife hinzu, damit zwei Menschen abwechselnd spielen können.
