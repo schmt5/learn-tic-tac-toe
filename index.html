@@ -50,13 +50,25 @@
                 );
             }
 
+            // Schritt 3: Daten verändern
+            // Diese Funktion setzt einen Stein ("X" oder "O") auf ein Feld.
+            // index ist die Position 0-8, spieler ist "X" oder "O".
+            function setzeStein(feld, index, spieler) {
+                feld[index] = spieler;
+            }
+
             // ===== Hauptteil: Funktionen zusammensetzen =====
             // Jede Funktion macht genau eine Sache. Hier kombinieren wir sie:
             let feld = erstelleFeld(); // Schritt 1: Daten erzeugen
             zeigeFeld(feld); // Schritt 2: Daten anzeigen
 
+            setzeStein(feld, 0, "X"); // Schritt 3: X oben links setzen
+            zeigeFeld(feld); // Feld erneut anzeigen – jetzt mit den Steinen
+            setzeStein(feld, 4, "O"); // Schritt 3: O in die Mitte setzen
+            zeigeFeld(feld); // Feld erneut anzeigen – jetzt mit den Steinen
+
             // Ausblick: In den nächsten Schritten kommen weitere Funktionen dazu,
-            // z. B. einen Stein setzen, den Spieler wechseln und prüfen, wer gewinnt.
+            // z. B. den Spieler wechseln und prüfen, wer gewinnt.
         </script>
     </body>
 </html>
